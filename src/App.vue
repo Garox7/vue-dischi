@@ -7,12 +7,12 @@
 
 <script>
 import HeaderPage from '@/components/HeaderPage.vue';
-import mainPage from '@/components/MainPage.vue';
+import MainPage from '@/components/MainPage.vue';
 
 export default {
   components: {
     HeaderPage,
-    mainPage,
+    MainPage,
   },
 };
 </script>
@@ -23,5 +23,9 @@ export default {
 
 html {
   font-family: 'Lato', sans-serif;
+}
+
+body {
+  background-color: rgb(33 44 58);
 }
 </style>
