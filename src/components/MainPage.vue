@@ -1,15 +1,14 @@
 <template>
-  <div class="container pt-5 px-4 px-sm-2">
-    <div class="row justify-content-center">
-      <AlbumComp v-for="album in arrAlbum"
-        :key="album.name"
-        :poster="album.poster"
-        :title="album.title"
-        :author="album.author"
-        :year="album.year"
-        class="col-6 col-sm-4 col-md-3"
-      />
-    </div>
+  <div class="main-container">
+    <AlbumComp v-for="album in arrAlbum"
+      :key="album.name"
+      :poster="album.poster"
+      :title="album.title"
+      :author="album.author"
+      :year="album.year"
+      :genre="album.genre"
+      class="album-card"
+    />
   </div>
 </template>
 
@@ -22,6 +21,9 @@ export default {
   components: {
     AlbumComp,
   },
+  props: {
+    valueOfFilter: String,
+  },
   data() {
     return {
       arrAlbum: null,
@@ -31,14 +33,37 @@ export default {
   created() {
     axios.get(this.urlAPi)
       .then((axiosResponse) => {
-        console.log(axiosResponse);
         this.arrAlbum = axiosResponse.data.response;
-        console.log(this.arrAlbum);
+
+        console.log('Album:', this.arrAlbum); // DEBUG
       });
+  },
+  computed: {
+    filteredAlbum() {
+      return this.arrAlbum.filter((obj) => obj.genre === this.valueOfFilter);
+      // console.log('valori filtrati', this.arrAlbum);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.main-container {
+  max-width: 1000px;
+  margin: 2rem auto 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 
+  .album-card {
+    flex: 1 1 calc(100% / 5 - 2rem);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-container .album-card {
+    flex: 1 1 calc(100% / 2 - 2rem);
+  }
+}
 </style>

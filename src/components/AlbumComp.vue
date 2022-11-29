@@ -1,13 +1,10 @@
 <template>
-  <div class="album text-center text-light">
-    <img
-      :src="poster"
-      :alt="title"
-      class="img-fluid"
-    >
-    <h2 class="fs-6 mb-1">{{ title }}</h2>
-    <p class="fs-6 mb-1">{{ author }}</p>
-    <p class="fs-6"> {{ year }}</p>
+  <div class="card-container">
+    <img :src="poster" :alt="title">
+    <h2>{{ title }}</h2>
+    <p class="author">{{ author }}</p>
+    <p class="year"> {{ year }}</p>
+    <p>{{ genre }}</p>
   </div>
 </template>
 
@@ -19,17 +16,41 @@ export default {
     title: String,
     author: String,
     year: String,
+    genre: String,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.album {
+.card-container {
   background-color: rgb(49 58 69);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
 
   img {
-    width: 150px;
-    height: 150px;
+    max-width: 100%;
+    aspect-ratio: 1/1;
+    margin-bottom: .5rem;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
+
+  .author {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .year {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
   }
 }
 </style>
