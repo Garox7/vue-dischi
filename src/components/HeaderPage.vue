@@ -4,24 +4,43 @@
       <img src="@/assets/logo.png" alt="Logo">
     </div>
     <div class="filter">
-      <InputSearch @getFilterValue="getFilterValue" />
+      <label for="search__album">
+        <select
+        id="search__album"
+        v-model="newOption"
+        @change="changeOption"
+        >
+          <option value="all">
+            Tutti i generi
+          </option>
+
+          <option
+          v-for="option in genreOptions"
+          :key="option"
+          :value="option"
+          >
+          {{ option }}
+        </option>
+        </select>
+      </label>
     </div>
   </header>
 </template>
 
 <script>
-import InputSearch from '@/components/InputSearch.vue';
-
 export default {
-  components: {
-    InputSearch,
-  },
   name: 'HeaderPage',
+  props: {
+    genreOptions: Array,
+  },
+  data() {
+    return {
+      newOption: 'all',
+    };
+  },
   methods: {
-    getFilterValue(value) {
-      this.$emit('getFilterValue', value);
-
-      console.log('valore trasmesso all\'Header:', value); // DEBUG
+    changeOption() {
+      this.$emit('changeOption', this.newOption);
     },
   },
 };
@@ -47,6 +66,20 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    select {
+      background-color: rgb(33 44 58);
+      color: white;
+      border: 1px solid rgb(49 58 69);
+      border-radius: 5px;
+      height: 1.5rem;
+      width: 150px;
+
+      &:focus-visible {
+        border: 1px solid white;
+        outline: none;
+      }
+    }
   }
 }
 </style>

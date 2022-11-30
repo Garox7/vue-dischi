@@ -27,6 +27,7 @@ export default {
   color: white;
   text-align: center;
   padding: 1rem;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -36,6 +37,7 @@ export default {
     max-width: 100%;
     aspect-ratio: 1/1;
     margin-bottom: .5rem;
+    border-radius: 5px;
   }
 
   h2 {

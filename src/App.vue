@@ -1,7 +1,7 @@
 <template>
 <div>
-  <HeaderPage @getFilterValue="filteValue"/>
-  <MainPage :valueOfFilter="valueProps"/>
+  <HeaderPage :genreOptions="genresList" @changeOption="getNewOption"/>
+  <MainPage @genresReady="getGenresList" :genreFilter="optionToMain"/>
 </div>
 </template>
 
@@ -16,14 +16,18 @@ export default {
   },
   data() {
     return {
-      valueProps: '',
+      genresList: [],
+      optionToMain: 'all',
     };
   },
   methods: {
-    filteValue(newValue) {
-      this.valueProps = newValue;
+    getGenresList(genresList) {
+      this.genresList = genresList;
+    },
+    getNewOption(newOption) {
+      this.optionToMain = newOption;
 
-      console.log('Il valore è arrivato all\'app:', this.valueProps); // DEBUG
+      console.log('Nuova opzione di filtraggio:', newOption); // DEBUG
     },
   },
 };

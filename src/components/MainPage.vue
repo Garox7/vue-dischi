@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <AlbumComp v-for="album in arrAlbum"
+    <AlbumComp v-for="album in arrAlbumFilter"
       :key="album.name"
       :poster="album.poster"
       :title="album.title"
@@ -22,7 +22,7 @@ export default {
     AlbumComp,
   },
   props: {
-    valueOfFilter: String,
+    genreFilter: String,
   },
   data() {
     return {
@@ -39,9 +39,29 @@ export default {
       });
   },
   computed: {
-    filteredAlbum() {
-      return this.arrAlbum.filter((obj) => obj.genre === this.valueOfFilter);
-      // console.log('valori filtrati', this.arrAlbum);
+    arrGenres() {
+      const arrGenres = [];
+      if (this.arrAlbum) {
+        this.arrAlbum.forEach((objAlbum) => {
+          if (!arrGenres.includes(objAlbum.genre)) {
+            arrGenres.push(objAlbum.genre);
+          }
+        });
+      }
+      return arrGenres;
+    },
+    arrAlbumFilter() {
+      if (this.genreFilter === 'all') {
+        return this.arrAlbum;
+      }
+      return this.arrAlbum.filter((objAlbum) => objAlbum.genre === this.genreFilter);
+    },
+  },
+  watch: {
+    arrGenres(newValue) {
+      this.$emit('genresReady', newValue);
+
+      console.log('Array dei generi:', newValue); // DEBUG
     },
   },
 };
@@ -54,16 +74,19 @@ export default {
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 
   .album-card {
     flex: 1 1 calc(100% / 5 - 2rem);
+    max-width: 20%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .main-container .album-card {
     flex: 1 1 calc(100% / 2 - 2rem);
+    max-width: 50%;
   }
 }
 </style>
